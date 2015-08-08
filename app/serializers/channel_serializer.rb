@@ -1,5 +1,5 @@
 class ChannelSerializer < ActiveModel::Serializer
-  attributes :id, :title, :description, :status, :category, :logo, :subscribers_count
+  attributes :id, :title, :description, :status, :category, :logo, :subscribers_count, :owner_id
 
   def logo
     "#{Rails.application.secrets.host_name}#{object.logo.url()}"
