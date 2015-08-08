@@ -1,6 +1,10 @@
 class Api::V1::ChannelsController < ApplicationController
-  before_action :authenticate_with_token!, only: [:index, :create, :update]
-  before_action :set_channel, only: :update
+  before_action :authenticate_with_token!, only: [:show, :index, :create, :update]
+  before_action :set_channel, only: [:update, :show]
+
+  def show
+    render json: @channel, status: 200
+  end
 
   def index
     channels = current_user.channels
