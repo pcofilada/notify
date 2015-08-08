@@ -10,7 +10,7 @@ Rails.application.routes.draw do
       end
       resources :sessions, only: [:create, :destroy]
 
-      get :channels, to: 'home#channels'
+      resources :home, path: :channels, as: :channels, only: [:index, :show]
     end
   end
 end
