@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
   before_create :generate_authentication_token!
 
   has_many :channels, as: :owner
+  has_many :subscriptions
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
