@@ -20,6 +20,10 @@ class Api::V1::AnnouncementsController < ApplicationController
       @channel.subscriptions.sms_enabled.each do |sms|
         client.send_message(message: announcement.message, mobile_number: "#{sms.user.mobile_number}")
       end
+
+      @channel.subscriptions.email_enabled.each do |email|
+        UserMailer.send_notification(email.user, announcement).deliver
+      end
     else
       render json: { errors: announcement.errors.full_messages }, status: 422
     end
