@@ -20,4 +20,8 @@ class User < ActiveRecord::Base
       self.auth_token = Devise.friendly_token
     end while self.class.exists?(auth_token: auth_token)
   end
+
+  def fullname
+    "#{first_name} #{last_name}"
+  end
 end
