@@ -9,6 +9,8 @@ Rails.application.routes.draw do
         end
       end
       resources :sessions, only: [:create, :destroy]
+
+      get :channels, to: 'home#channels'
     end
   end
 end
