@@ -13,17 +13,7 @@ class Api::V1::AnnouncementsController < ApplicationController
 
     if announcement.save
       render json: announcement, status: 201
-
-      client = Chikka::Client.new(client_id: "#{Rails.application.secrets.client_id}", 
-                                  secret_key: "#{Rails.application.secrets.secret_key}", 
-                                  shortcode: "#{Rails.application.secrets.shortcode}")
-      @channel.subscriptions.sms_enabled.each do |sms|
-        client.send_message(message: announcement.message, mobile_number: "#{sms.user.mobile_number}")
-      end
-
-      @channel.subscriptions.email_enabled.each do |email|
-        UserMailer.send_notification(email.user, announcement).deliver
-      end
+      notify(announcement)
     else
       render json: { errors: announcement.errors.full_messages }, status: 422
     end
@@ -39,4 +29,16 @@ private
     params.require(:announcement).permit(:title, :message)
   end
 
+  def notify(announcement)
+    client = Chikka::Client.new(client_id: "#{Rails.application.secrets.client_id}", 
+                                secret_key: "#{Rails.application.secrets.secret_key}", 
+                                shortcode: "#{Rails.application.secrets.shortcode}")
+    @channel.subscriptions.sms_enabled.each do |sms|
+      client.send_message(message: announcement.message, mobile_number: "#{sms.user.mobile_number}")
+    end
+
+    @channel.subscriptions.email_enabled.each do |email|
+      UserMailer.send_notification(email.user, announcement).deliver
+    end
+  end
 end
