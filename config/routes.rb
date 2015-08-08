@@ -10,7 +10,9 @@ Rails.application.routes.draw do
       end
       resources :sessions, only: [:create, :destroy]
 
-      resources :home, path: :channels, as: :channels, only: [:index, :show]
+      resources :home, path: :channels, as: :channels, only: [:index, :show] do
+        resource :subscription, only: :create
+      end
     end
   end
 end
