@@ -11,9 +11,9 @@ class User < ActiveRecord::Base
   validates :first_name, :last_name, :age, :mobile_number, presence: true
   validates :auth_token, uniqueness: true
 
-  def :generate_authentication_token!
+  def generate_authentication_token!
     begin
       self.auth_token = Devise.friendly_token
-    end while.self.class.exists?(auth_token: auth_token)
+    end while self.class.exists?(auth_token: auth_token)
   end
 end
