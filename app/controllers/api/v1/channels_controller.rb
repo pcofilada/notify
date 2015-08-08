@@ -13,7 +13,7 @@ class Api::V1::ChannelsController < ApplicationController
     if channel.save
       render json: channel, status: 201
     else
-      render json: { errors: channel.errors }, status: 422 
+      render json: { errors: channel.errors.full_messages }, status: 422 
     end
   end
 
