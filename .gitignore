@@ -16,6 +16,7 @@ public/uploads
 public/system
 coverage/
 /config/database.yml
+/config/secrets.yml
 .rvmrc
 .ruby-gemset
 .ruby-version
