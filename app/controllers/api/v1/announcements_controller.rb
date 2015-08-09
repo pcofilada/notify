@@ -5,7 +5,7 @@ class Api::V1::AnnouncementsController < ApplicationController
   def index
     announcements = @channel.announcements
 
-    render json: announcements, status: 200
+    render json: announcements, status: 200, root: false
   end
 
   def create
