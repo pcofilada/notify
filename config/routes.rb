@@ -7,6 +7,9 @@ Rails.application.routes.draw do
         resources :channels, only: [:show, :index, :create, :update] do
           resources :announcements, only: [:index, :create]
         end
+        member do
+          get :subscribed
+        end
       end
       resources :sessions, only: [:create, :destroy]
 

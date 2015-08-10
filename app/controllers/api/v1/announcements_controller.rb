@@ -22,7 +22,7 @@ class Api::V1::AnnouncementsController < ApplicationController
 private
 
   def set_channel
-    @channel = current_user.channels.find(params[:channel_id])
+    @channel = Channel.find(params[:channel_id])
   end
 
   def announcement_params

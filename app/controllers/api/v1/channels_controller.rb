@@ -9,7 +9,7 @@ class Api::V1::ChannelsController < ApplicationController
   def index
     channels = current_user.channels
 
-    render json: channels, status: 200 
+    render json: channels, status: 200, root: false
   end
 
   def create

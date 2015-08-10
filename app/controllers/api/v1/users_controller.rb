@@ -10,6 +10,14 @@ class Api::V1::UsersController < ApplicationController
     end
   end
 
+  def subscribed
+    channels_id = User.find(params[:id]).subscriptions.pluck(:channel_id).uniq
+    channels = Channel.find(channels_id)
+
+
+    render json: channels, status: 200, root: false
+  end
+
 private
   
   def user_params
